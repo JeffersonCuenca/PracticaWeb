@@ -1,0 +1,113 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Otoño de Caramelo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="icon" href="/images/icono.png">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark" style="background-color: #000;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/images/icono.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Otoño de Caramelo
+          </a>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="row align-items-start mt-4 mb-4">
+            <div class="col"></div>
+			<div class="col">
+				<h3>Registrar Torta</h3>
+				<hr>
+			</div>
+            <div class="col"></div>
+        </div>
+		<form th:action="@{/tortas/save}" method="post" th:object="${torta}">
+        	<div class="row align-items-center text-start pt-4 mb-4">
+            	<div class="col"></div>
+            	<div class="col">
+				
+						<div class="mb-3">
+							<label>ID:</label> <input type="text" class="form-control" readonly th:field="*{idTorta}"></input>
+
+                        	<div class="mb-3">
+								<label for="nombre" class="form-label">NOMBRE TORTA:</label>
+                            	<input type="text" th:field="*{nombreTorta}" class="form-control" 
+                            	id="nombreTorta" th:errorclass="'form-control is-invalid'"></input>
+                            	<small 
+                            		class="form-text invalid-feedback" 
+                            		th:if="${#fields.hasErrors('nombreTorta')}"
+									th:errors="*{nombreTorta}">
+								</small>
+							</div>
+
+                        	<div class="mb-3">
+								<label for="nombre" class="form-label">DIAMETRO TORTA:</label>
+                            	<input type="text" th:field="*{diametroTorta}" class="form-control" 
+                            	id="diametroTorta" th:errorclass="'form-control is-invalid'"></input>
+                            	<small 
+                            		class="form-text invalid-feedback" 
+                            		th:if="${#fields.hasErrors('diametroTorta')}"
+									th:errors="*{diametroTorta}">
+								</small>
+							</div>
+
+                        	<div class="mb-3">
+								<label for="nombre" class="form-label">CANTIDAD DE PORCIONES TORTA:</label>
+                            	<select th:field="*{porcionesTorta}" class="form-select" 
+                            	id="porcionesTorta" th:errorclass="'form-select is-invalid'">
+								<option selected value="">Choose...</option>
+								<option value="12 - 15">12 - 15</option>
+								<option value="15 - 18">15 - 18</option>
+								<option value="22 - 25">22 - 25</option>
+								</select>
+                            	<small 
+                            		class="form-text invalid-feedback" 
+                            		th:if="${#fields.hasErrors('porcionesTorta')}"
+									th:errors="*{porcionesTorta}">
+								</small>
+							</div>
+
+                       		<div class="mb-3">
+								<label for="nombre" class="form-label">PRECIO TORTA:</label>
+                            	<input type="text" th:field="*{precioTorta}" class="form-control" 
+                            	id="precioTorta" th:errorclass="'form-control is-invalid'"></input>
+                            	<small 
+                            		class="form-text invalid-feedback" 
+                            		th:if="${#fields.hasErrors('precioTorta')}"
+									th:errors="*{precioTorta}">
+								</small>
+							</div>
+
+                	    </div>
+                    
+            	</div>
+            	<div class="col"></div>
+        	</div>
+        		<div class="row align-items-end">
+            		<div class="col"></div>
+            		<div class="col">
+            			<div th:if="${mensaje}" class="alert alert-danger d-flex align-items-center" role="alert">
+							<p class="mb-0" th:text="${mensaje}"></p>
+						</div>
+            		
+                		<button type="submit" class="btn btn-dark">Aceptar</button>
+						<a href="/tortas/list" class="btn btn-light">Cancelar</a>			
+            		</div>
+            		<div class="col"></div>
+       			</div>
+         </form>
+        
+        
+    </div>
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

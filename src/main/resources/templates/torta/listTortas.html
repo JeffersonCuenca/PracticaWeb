@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Otoño de Caramelo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="icon" href="/images/icono.png">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark" style="background-color: #000;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/images/icono.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Otoño de Caramelo
+          </a>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="row align-items-start my-4">
+            <div class="col">
+                <h3>Lista de Tortas</h3>
+                <hr>
+            </div>
+            <div class="col"></div>
+            <div class="col">
+                <a th:href="@{/tortas/new}" class="btn btn-dark">Nuevo</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 offset-md-3 py-4">
+        <div class="col"></div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center">ID</th>
+					<th scope="col" class="text-center">NOMBRE TORTA</th>
+					<th scope="col" class="text-center">DIAMETRO</th>
+					<th scope="col" class="text-center">CANTIDAD DE PORCIONES</th>
+					<th scope="col" class="text-center">PRECIO</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr th:each="cat : ${listaTortas}">
+                    <td class="text-center" th:text="${cat.idTorta}"></td>
+					<td class="text-center" th:text="${cat.nombreTorta}"></td>
+					<td class="text-center" th:text="${cat.diametroTorta + ' cm'}"></td>
+					<td class="text-center" th:text="${cat.porcionesTorta}"></td>
+					<td class="text-center" th:text="${cat.precioTorta}"></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row align-items-end">
+        <div class="col"></div>
+        <div class="col">
+            <div th:if="${mensaje}" class="alert alert-danger d-flex align-items-center" role="alert">
+                <p th:text="${mensaje}"></p>
+            </div>		
+        </div>
+        <div class="col"></div>
+       </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
