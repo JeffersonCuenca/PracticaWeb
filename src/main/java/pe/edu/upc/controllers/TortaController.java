@@ -49,7 +49,7 @@ public class TortaController {
 			int rpta = tS.insert(torta);
 			if(rpta > 0) {
 				model.addAttribute("torta", torta);
-				model.addAttribute("mensaje", "Ya existe una torta con ese diametro");
+				model.addAttribute("mensaje", "Ya existe una torta con el mismo nombre y diametro");
 				return "torta/torta";
 			} else {
 			model.addAttribute("mensaje", "Se registró correctamente");
