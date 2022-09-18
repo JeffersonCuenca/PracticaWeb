@@ -1,5 +1,7 @@
 package pe.edu.upc.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.entities.Torta;
 import pe.edu.upc.serviceinterfaces.ITortaService;
@@ -60,4 +65,23 @@ public class TortaController {
 		return "redirect:/tortas/list";
 	}
 
+	@RequestMapping("/delete")
+	public String deleteTorta(Model model, @RequestParam(value = "id") Integer id, Torta torta) {
+		tS.delete(id);
+		model.addAttribute("torta", torta);
+		model.addAttribute("listaTortas", tS.list());
+		return "torta/listTortas";
+	}
+	
+	@RequestMapping("/update/{id}")
+	public String updateTorta(@PathVariable int id, Model model, RedirectAttributes objRedirect) {
+		Optional<Torta> torta = tS.listId(id);
+		if (torta == null) {
+			objRedirect.addFlashAttribute("mensaje", "Ocurrio un error");
+			return "torta/torta";
+		} else {
+			model.addAttribute("torta", torta);
+			return "torta/torta";
+		}
+	}
 }
