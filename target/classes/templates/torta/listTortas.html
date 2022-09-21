@@ -56,11 +56,11 @@
 					<td class="text-center" th:text="${cat.porcionesTorta}"></td>
 					<td class="text-center" th:text="${cat.precioTorta}"></td>
 					<td class="text-center"><a
-							th:href="@{/tortas/delete?id=}+${cat.idTorta}"><i
-								class="bi bi-trash-fill" style="color: red"></i></a></td>
+							th:onclick="eliminar([[${cat.idTorta}]])"><i
+								class="bi bi-trash-fill" style="color: #d33"></i></a></td>
 					<td class="text-center"><a
 							th:href="@{'/tortas/update/'+${cat.idTorta}}"><i
-								class="bi bi-pencil-square" style="color: red"></i></a></td>
+								class="bi bi-pencil-square" style="color: #3085d6"></i></a></td>
                   </tr>
                 </tbody>
               </table>
@@ -80,5 +80,8 @@
 
     <script src="/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="/js/alertaEliminar.js"></script>
   </body>
 </html>

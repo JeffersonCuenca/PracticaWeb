@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -65,11 +64,9 @@ public class TortaController {
 		return "redirect:/tortas/list";
 	}
 
-	@RequestMapping("/delete")
-	public String deleteTorta(Model model, @RequestParam(value = "id") Integer id, Torta torta) {
+	@RequestMapping("/delete/{id}")
+	public String deleteTorta(@PathVariable int id) {
 		tS.delete(id);
-		model.addAttribute("torta", torta);
-		model.addAttribute("listaTortas", tS.list());
 		return "torta/listTortas";
 	}
 	
