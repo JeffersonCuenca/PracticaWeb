@@ -6,6 +6,8 @@
     <title>Otoño de Caramelo</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href='/css/component-chosen.css'>
+    <link rel="stylesheet" href='/css/component-chosen.min.css'>
     <link rel="icon" href="/images/icono.png">
   </head>
 
@@ -35,10 +37,13 @@
             	<div class="col">
 				
 						<div class="mb-3">
-							<label>ID:</label> <input type="text" class="form-control" readonly th:field="*{idTorta}"></input>
+						
+							<div class="mb-3">
+								<label>ID:</label> <input type="text" class="form-control" readonly th:field="*{idTorta}"></input>
+							</div>
 
                         	<div class="mb-3">
-								<label for="nombre" class="form-label">NOMBRE TORTA:</label>
+								<label for="nombreTorta" class="form-label">Nombre de la torta:</label>
                             	<input type="text" th:field="*{nombreTorta}" class="form-control" 
                             	id="nombreTorta" th:errorclass="'form-control is-invalid'"></input>
                             	<small 
@@ -49,9 +54,15 @@
 							</div>
 
                         	<div class="mb-3">
-								<label for="nombre" class="form-label">DIAMETRO TORTA:</label>
-                            	<input type="text" th:field="*{diametroTorta}" class="form-control" 
-                            	id="diametroTorta" th:errorclass="'form-control is-invalid'"></input>
+								<label for="diametroTorta" class="form-label">Diametro de la torta(cm):</label>
+                            	<select th:field="*{diametroTorta}" class="form-select chosenDiametro" 
+                            	id="diametroTorta" th:errorclass="'form-select is-invalid'" data-placeholder="Choose..."
+                            	onchange="change(this.id, 'porcionesTorta')">
+                            		<option value=""></option>
+									<option value="19">19</option>
+									<option value="22">22</option>
+									<option value="28">28</option>
+                            	</select>
                             	<small 
                             		class="form-text invalid-feedback" 
                             		th:if="${#fields.hasErrors('diametroTorta')}"
@@ -60,13 +71,10 @@
 							</div>
 
                         	<div class="mb-3">
-								<label for="nombre" class="form-label">CANTIDAD DE PORCIONES TORTA:</label>
-                            	<select th:field="*{porcionesTorta}" class="form-select" 
-                            	id="porcionesTorta" th:errorclass="'form-select is-invalid'">
-								<option selected value="">Choose...</option>
-								<option value="12 - 15">12 - 15</option>
-								<option value="15 - 18">15 - 18</option>
-								<option value="22 - 25">22 - 25</option>
+								<label for="porcionesTorta" class="form-label">Cantidad de porciones de la torta:</label>
+                            	<select th:field="*{porcionesTorta}" class="form-select chosenPorciones" 
+                            	id="porcionesTorta" th:errorclass="'form-select is-invalid'" data-placeholder="Choose...">
+									<option value=""></option>
 								</select>
                             	<small 
                             		class="form-text invalid-feedback" 
@@ -76,7 +84,7 @@
 							</div>
 
                        		<div class="mb-3">
-								<label for="nombre" class="form-label">PRECIO TORTA:</label>
+								<label for="precioTorta" class="form-label">Precio de la torta:</label>
                             	<input type="text" th:field="*{precioTorta}" class="form-control" 
                             	id="precioTorta" th:errorclass="'form-control is-invalid'"></input>
                             	<small 
@@ -111,5 +119,20 @@
 
 	<script src="/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	<script src="/js/FuncionesImplementadas.js"></script>
+	<script src="/js/chosen.jquery.js"></script>
+	<script>
+        //chosen institución
+        $('.chosenDiametro, .chosenPorciones').chosen({no_results_text: "No hay resultados...",allow_single_deselect: true});
+        $(".chosenDiametro").chosen().on("change", function(event) { 
+                            document.getElementById('porcionesTorta').value = "" ;
+                            $(".chosenPorciones").trigger('chosen:updated');
+                            });
+        $(".chosenPorciones").chosen().on("chosen:showing_dropdown", function(event) {  
+                            $(".chosenPorciones").trigger('chosen:updated');
+                            });
+    </script>
+	
   </body>
 </html>
