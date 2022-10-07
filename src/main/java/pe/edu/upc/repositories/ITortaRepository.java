@@ -12,6 +12,6 @@ public interface ITortaRepository extends JpaRepository<Torta, Integer>{
 	
 	@Query("select count(t.nombreTorta) "
 	+ "from Torta t " 
-	+ "where (t.nombreTorta=:name and t.diametroTorta=:diameter) or (t.nombreTorta=:name and t.porcionesTorta=:portions)")
+	+ "where t.nombreTorta=:name and t.diametroTorta=:diameter and t.porcionesTorta=:portions")
 	public int TortaExistentes(@Param("name") String nombre, @Param("diameter") Double diametro, @Param("portions") String porciones);
 }
