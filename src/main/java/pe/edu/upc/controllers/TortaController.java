@@ -1,7 +1,13 @@
 package pe.edu.upc.controllers;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lowagie.text.DocumentException;
+
 import pe.edu.upc.entities.Torta;
 import pe.edu.upc.serviceinterfaces.ITortaService;
+import pe.edu.upc.util.TortaExporterPdf;
 
 @Controller
 @RequestMapping("/tortas")
@@ -80,5 +89,26 @@ public class TortaController {
 			model.addAttribute("torta", torta);
 			return "torta/torta";
 		}
+	}
+	
+	@GetMapping("/exportarPDF")
+	public void exportarPDFTortas(HttpServletResponse response) throws DocumentException, IOException {
+		
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String fechaActual = dateFormatter.format(new Date());
+		
+		String cabecera = "Content-Disposition";
+		String valor = "attachment; filename=ListaTortas_" + fechaActual + ".pdf";
+		
+		response.setHeader(cabecera, valor);
+		
+		List<Torta> tortas = tS.list();
+		
+		TortaExporterPdf exporter = new TortaExporterPdf(tortas);
+		exporter.exportar(response);
+		
+		
 	}
 }
